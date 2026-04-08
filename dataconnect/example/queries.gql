@@ -1,0 +1,48 @@
+query ListAllEvents @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
+  events(orderBy: [{dateTime: ASC}]) {
+    id
+    title
+    dateTime
+    location
+    imageUrl
+    creator {
+      displayName
+    }
+  }
+}
+
+query GetUserProjects($userId: UUID!) @auth(level: USER, insecureReason: "This operation accesses user-specific data but the user ID is explicitly passed as a variable.") {
+  projects(where: {authorId: {eq: $userId}}) {
+    id
+    title
+    description
+    githubLink
+    demoLink
+    imageUrls
+    technologiesUsed
+  }
+}
+
+mutation CreateNewResource($title: String!, $description: String!, $fileUrl: String!, $type: String!, $tags: [String!]) @auth(level: USER) {
+  resource_insert(data: {
+    title: $title,
+    description: $description,
+    fileUrl: $fileUrl,
+    type: $type,
+    tags: $tags,
+    uploaderId_expr: "auth.uid"
+  }) {
+    id
+  }
+}
+
+mutation UserRSVPForEvent($eventId: UUID!) @auth(level: USER) {
+  rSVP_insert(data: {
+    userId_expr: "auth.uid",
+    eventId: $eventId,
+    createdAt_expr: "request.time"
+  }) {
+    userId
+    eventId
+  }
+}

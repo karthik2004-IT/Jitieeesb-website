@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | JIT IEEE SB</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background: #f4f7f6; }
+        .admin-page { padding: 40px 0; }
+        .card { border: none; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .card-header { background: #006294; color: white; font-weight: 700; border-radius: 12px 12px 0 0 !important; }
+        .btn-ieee { background: #006294; color: white; border: none; }
+        .btn-ieee:hover { background: #004a70; color: white; }
+        .item-list { list-style: none; padding: 0; }
+        .item-list li { background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #eee; }
+        .item-list li:hover { background: #f9f9f9; }
+        
+        /* Auth Styles */
+        .auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #006294; z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .auth-box { background: white; padding: 40px; border-radius: 20px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body>
+
+    <!-- Auth Overlay (Email & Password) -->
+    <div id="authOverlay" class="auth-overlay">
+        <div class="auth-box">
+            <img src="jit ieee sb logo.png" alt="Logo" class="mb-4" style="height: 60px;">
+            <h3 class="mb-3">Admin Login</h3>
+            <p class="text-muted small mb-4">Authorized Personnel Only</p>
+            <form id="adminLoginForm">
+                <div class="mb-3 text-start">
+                    <label class="form-label small">Email Address</label>
+                    <input type="email" id="adminEmail" class="form-control" placeholder="admin@jit.edu.in" required>
+                </div>
+                <div class="mb-3 text-start">
+                    <label class="form-label small">Password</label>
+                    <input type="password" id="adminPass" class="form-control" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-ieee w-100 py-2">Login to Dashboard</button>
+            </form>
+            <div id="loginError" class="text-danger mt-3 small" style="display:none;">Unknown Email or Incorrect Password.</div>
+        </div>
+    </div>
+
+    <!-- Main Admin Dashboard -->
+    <div id="adminContent" style="display:none;">
+        <nav class="navbar navbar-dark bg-dark">
+          <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1"><i class="fas fa-tools"></i> JIT IEEE Admin Dashboard</span>
+            <div>
+                <button id="logoutBtn" class="btn btn-outline-danger btn-sm me-2">Logout</button>
+                <a href="index.html" class="btn btn-outline-light btn-sm">Back to Website</a>
+            </div>
+          </div>
+        </nav>
+
+        <div class="container admin-page">
+            <h2 class="mb-4 fw-bold">Management Portal</h2>
+            
+            <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#eventsTab">Events</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#teamTab">Team</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#achievementsTab">Achievements</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#galleryTab">Gallery</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#newsletterTab">Newsletters</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link text-danger fw-bold" data-bs-toggle="tab" data-bs-target="#usersTab">Manage Admins</button>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <!-- Gallery Tab -->
+                <div class="tab-pane fade" id="galleryTab">
+                    <div class="card p-4 mb-4">
+                        <h4 class="mb-3">Add to Gallery</h4>
+                        <form id="addGalleryForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label>Gallery Image</label>
+                                    <input type="file" id="galImageFile" class="form-control" accept="image/*" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label>Short Description</label>
+                                    <input type="text" id="galDesc" class="form-control" placeholder="Annual Day 2025" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-ieee">Add to Gallery</button>
+                        </form>
+                    </div>
+                    <div class="card p-4">
+                        <h5>Gallery Photos</h5>
+                        <ul class="item-list" id="adminGalleryList"></ul>
+                    </div>
+                </div>
+
+                <!-- Newsletters Tab -->
+                <div class="tab-pane fade" id="newsletterTab">
+                    <div class="card p-4 mb-4">
+                        <h4 class="mb-3">Add Newsletter</h4>
+                        <form id="addLetterForm">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label>Issue Title</label>
+                                    <input type="text" id="nlTitle" class="form-control" placeholder="IEEE SB Newsletter | Oct 2025" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label>Flipbook Link (Flipbook URL)</label>
+                                    <input type="url" id="nlLink" class="form-control" placeholder="https://heyzine.com/..." required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label>Front Cover Page (Image)</label>
+                                    <input type="file" id="nlCoverFile" class="form-control" accept="image/*" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-ieee">Add Release</button>
+                        </form>
+                    </div>
+                    <div class="card p-4">
+                        <h5>Newsletter Releases</h5>
+                        <ul class="item-list" id="adminNewsletterList"></ul>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="usersTab">
+                    <div class="card p-4 mb-4">
+                        <h4 class="mb-3">Add New Admin</h4>
+                        <form id="addUserForm">
+                            <div class="row">
+                                <div class="col-md-5 mb-3">
+                                    <label>Email Address</label>
+                                    <input type="email" id="newUserEmail" class="form-control" required placeholder="member@jit.edu.in">
+                                </div>
+                                <div class="col-md-5 mb-3">
+                                    <label>Unique Password</label>
+                                    <input type="text" id="newUserPass" class="form-control" required placeholder="Create a password">
+                                </div>
+                                <div class="col-md-2 mb-3 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-ieee w-100">Add User</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card p-4">
+                        <h4 class="mb-3">Existing Admins</h4>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminUsersList"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Events Tab -->
+                <div class="tab-pane fade show active" id="eventsTab">
+                    <div class="card p-4 mb-4">
+                        <h4 class="mb-3">Add New Event</h4>
+                        <form id="addEventForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3"><label>Event Title</label><input type="text" id="evTitle" class="form-control" required></div>
+                                <div class="col-md-3 mb-3"><label>Day (e.g. 15)</label><input type="text" id="evDay" class="form-control" required></div>
+                                <div class="col-md-3 mb-3"><label>Month (e.g. Oct)</label><input type="text" id="evMonth" class="form-control" required></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3"><label>Time Range</label><input type="text" id="evTime" class="form-control" placeholder="10:00 AM - 4:00 PM" required></div>
+                                <div class="col-md-6 mb-3"><label>Location</label><input type="text" id="evLocation" class="form-control" required></div>
+                            </div>
+                            <div class="mb-3"><label>Registration Link <i>(Optional)</i></label><input type="text" id="evRegLink" class="form-control" placeholder="https://forms.gle/..."></div>
+                            <div class="mb-3"><label>Full Description</label><textarea id="evDesc" class="form-control" rows="3" required></textarea></div>
+                            <div class="mb-3"><label>Event Poster Image</label><input type="file" id="evPosterFile" class="form-control" accept="image/*"></div>
+                            <button type="submit" class="btn btn-ieee">Publish Event</button>
+                        </form>
+                    </div>
+                    <div class="card p-4">
+                        <h5>Current Events</h5>
+                        <ul class="item-list" id="adminEventsList"></ul>
+                    </div>
+                </div>
+
+                <!-- Team Tab -->
+                <div class="tab-pane fade" id="teamTab">
+                    <div class="card p-4 mb-4">
+                        <h4 class="mb-3">Add Team Member</h4>
+                        <form id="addTeamForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3"><label>Name</label><input type="text" id="tmName" class="form-control" required></div>
+                                <div class="col-md-6 mb-3"><label>Role</label><input type="text" id="tmRole" class="form-control" required></div>
+                            </div>
+                            <div class="mb-3"><label>LinkedIn URL</label><input type="text" id="tmLinkedIn" class="form-control"></div>
+                            <div class="mb-3"><label>Photo</label><input type="file" id="tmPhotoFile" class="form-control" accept="image/*" required></div>
+                            <button type="submit" class="btn btn-ieee">Add Member</button>
+                        </form>
+                    </div>
+                    <div class="card p-4">
+                        <h5>Team Directory</h5>
+                        <ul class="item-list" id="adminTeamList"></ul>
+                    </div>
+                </div>
+
+                <!-- Achievements Tab -->
+                <div class="tab-pane fade" id="achievementsTab">
+                    <div class="card p-4 mb-4">
+                        <h4 class="mb-3">Add Achievement</h4>
+                        <form id="addAchievementForm">
+                            <div class="row">
+                                <div class="col-md-8 mb-3"><label>Title</label><input type="text" id="achTitle" class="form-control" required></div>
+                                <div class="col-md-4 mb-3"><label>Year</label><input type="text" id="achYear" class="form-control" required></div>
+                            </div>
+                            <div class="mb-3"><label>Category</label><input type="text" id="achCategory" class="form-control" required></div>
+                            <div class="mb-3"><label>Description</label><textarea id="achDesc" class="form-control" rows="2" required></textarea></div>
+                            <div class="mb-3"><label>Image</label><input type="file" id="achImageFile" class="form-control" accept="image/*" required></div>
+                            <button type="submit" class="btn btn-ieee">Add Achievement</button>
+                        </form>
+                    </div>
+                    <div class="card p-4">
+                        <h5>Achievements History</h5>
+                        <ul class="item-list" id="adminAchievementsList"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery & Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    
+    <script src="js/admin.js"></script>
+</body>
+</html>

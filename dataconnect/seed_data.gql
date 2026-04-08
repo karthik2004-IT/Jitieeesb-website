@@ -1,0 +1,69 @@
+mutation CreateDemoData @transaction @auth(level: USER, insecureReason: "This is for seeding data and should only be run by authenticated users with appropriate permissions.") {
+  user1: user_insert(data: {
+    id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    displayName: "Alice Smith",
+    email: "alice.smith@example.com",
+    role: "Member",
+    createdAt: "2023-01-01T10:00:00Z",
+    major: "Computer Science",
+    year: 2025,
+    bio: "Passionate about software development.",
+    academicInterests: ["AI", "Machine Learning"],
+    skills: ["Python", "Java", "GraphQL"]
+  })
+  user2: user_insert(data: {
+    id: "b1f0c2a3-2d1e-4f5a-8b9c-0a1b2c3d4e5f",
+    displayName: "Bob Johnson",
+    email: "bob.johnson@example.com",
+    role: "Admin",
+    createdAt: "2023-02-01T11:30:00Z",
+    photoUrl: "https://example.com/bob.jpg",
+    major: "Electrical Engineering",
+    year: 2024,
+    bio: "Interested in robotics and embedded systems.",
+    academicInterests: ["Robotics", "Embedded Systems"],
+    skills: ["C++", "Assembly"]
+  })
+  project1: project_insert(data: {
+    id: "c2d1e4f5-a6b7-8c9d-0e1f-2a3b4c5d6e7f",
+    title: "AI-Powered Chatbot",
+    description: "A chatbot project utilizing natural language processing.",
+    createdAt: "2023-03-10T14:00:00Z",
+    author: { id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11" },
+    imageUrls: ["https://example.com/chatbot1.jpg", "https://example.com/chatbot2.jpg"],
+    githubLink: "https://github.com/alice/chatbot",
+    demoLink: "https://demo.com/chatbot",
+    technologiesUsed: ["Python", "TensorFlow", "Node.js"]
+  })
+  project2: project_insert(data: {
+    id: "d3e2f1a0-b4c5-6d7e-8f9a-0b1c2d3e4f5a",
+    title: "Smart Home Automation",
+    description: "An IoT project for automating home devices.",
+    createdAt: "2023-04-15T09:45:00Z",
+    author: { id: "b1f0c2a3-2d1e-4f5a-8b9c-0a1b2c3d4e5f" },
+    imageUrls: ["https://example.com/smarthome1.jpg"],
+    githubLink: "https://github.com/bob/smarthome",
+    technologiesUsed: ["C++", "Arduino", "Raspberry Pi"]
+  })
+  event1: event_insert(data: {
+    id: "e4f3a2b1-c5d6-7e8f-9a0b-1c2d3e4f5a6b",
+    title: "IEEE Tech Talk: Web Development",
+    description: "A talk on modern web development frameworks and practices.",
+    dateTime: "2023-05-20T18:00:00Z",
+    location: "University Auditorium",
+    createdAt: "2023-04-25T10:00:00Z",
+    creator: { id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11" },
+    rsvpCount: 50,
+    imageUrl: "https://example.com/techtalk.jpg"
+  })
+  resource1: resource_insert(data: {
+    id: "f5a4b3c2-d6e7-8f9a-0b1c-2d3e4f5a6b7c",
+    title: "Introduction to Git and GitHub",
+    description: "A comprehensive guide to version control with Git and GitHub.",
+    fileUrl: "https://example.com/git_guide.pdf",
+    type: "Document",
+    createdAt: "2023-06-01T12:00:00Z",
+    uploader: { id: "b1f0c2a3-2d1e-4f5a-8b9c-0a1b2c3d4e5f" },
+    tags: ["Git", "GitHub", "Version Control"]
+  })
+}

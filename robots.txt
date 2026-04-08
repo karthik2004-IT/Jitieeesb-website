@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /admin.html
+Disallow: /js/admin.js
+Disallow: /firebase.json
+Disallow: /firestore.rules
+Disallow: /database.rules.json
+
+Sitemap: https://jit-ieee-sb.firebaseapp.com/sitemap.xml

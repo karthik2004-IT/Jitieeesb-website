@@ -1,0 +1,50 @@
+type User @table {
+  displayName: String!
+  email: String!
+  role: String!
+  createdAt: Timestamp!
+  photoUrl: String
+  major: String
+  year: Int
+  bio: String
+  academicInterests: [String]
+  skills: [String]
+}
+
+type Event @table {
+  title: String!
+  description: String!
+  dateTime: Timestamp!
+  location: String!
+  createdAt: Timestamp!
+  creator: User
+  rsvpCount: Int
+  imageUrl: String
+}
+
+type Project @table {
+  title: String!
+  description: String!
+  createdAt: Timestamp!
+  author: User
+  imageUrls: [String]
+  githubLink: String
+  demoLink: String
+  technologiesUsed: [String]
+}
+
+type Resource @table {
+  title: String!
+  description: String!
+  fileUrl: String!
+  type: String!
+  createdAt: Timestamp!
+  uploader: User
+  tags: [String]
+}
+
+type RSVP @table(key: ["user", "event"]) {
+  createdAt: Timestamp!
+  user: User!
+  event: Event!
+}

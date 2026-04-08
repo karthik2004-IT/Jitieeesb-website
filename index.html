@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JIT IEEE Student Branch | Jeppiaar Institute of Technology</title>
+    <meta name="description"
+        content="Welcome to the JIT IEEE Student Branch website. Stay updated with our latest events, meet our team, and join our community.">
+    <link rel="icon" type="image/x-icon" href="jit ieee sb logo.png">
+
+    <!-- Structured Data WP SEO Structured Data Schema Simulation -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "JIT IEEE Student Branch",
+      "url": "https://edu.ieee.org/in-sairam/",
+      "logo": "jit ieee sb logo.png",
+      "sameAs": [
+        "https://www.facebook.com/ieeesairam",
+        "https://twitter.com/ieeesairam"
+      ]
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Oswald:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Slick Slider CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Event Detail Modal -->
+    <div class="modal fade" id="eventDetailModal" tabindex="-1" aria-labelledby="eventDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content overflow-hidden">
+                <div class="modal-header bg-ieee text-white">
+                    <h5 class="modal-title fw-bold" id="eventDetailTitle">Event Details</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="row g-0">
+                        <div class="col-md-5" id="eventDetailPosterContainer">
+                            <img src="" id="eventDetailPoster" class="img-fluid h-100 object-fit-cover"
+                                alt="Event Poster">
+                        </div>
+                        <div class="col-md-7 p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <span class="badge bg-ieee-yellow text-dark me-3 py-2 px-3" id="eventDetailDate"></span>
+                                <span class="text-muted"><i class="far fa-clock me-1"></i> <span
+                                        id="eventDetailTime"></span></span>
+                            </div>
+                            <h3 class="fw-bold mb-3" id="eventDetailMainTitle"></h3>
+                            <p class="text-muted mb-4"><i class="fas fa-map-marker-alt me-2"></i> <span
+                                    id="eventDetailLocation"></span></p>
+                            <div class="event-full-desc border-top pt-3">
+                                <p id="eventDetailDescription" style="line-height: 1.8; color: #555;"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="#" id="eventDetailRegLink" class="btn btn-ieee" target="_blank">Register for this Event</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Poster Popup Modal (Latest Event) -->
+    <div class="modal fade" id="eventPosterModal" tabindex="-1" aria-labelledby="eventPosterModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 bg-transparent">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal"
+                        aria-label="Close"
+                        style="background-color: rgba(0,0,0,0.5); padding: 10px; border-radius: 50%; opacity: 1;"></button>
+                </div>
+                <div class="modal-body text-center pt-0">
+                    <img src="assets/images/slider2.png" id="popupImage" alt="Latest Event Poster"
+                        class="img-fluid rounded shadow-lg" style="max-height: 80vh; object-fit: contain;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Meta Navigation -->
+    <div class="meta-nav py-1 bg-dark text-white">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="meta-left">
+                <a href="https://docs.google.com/spreadsheets/d/12U8jzQS86ZX_mrzCNSKBRso4iDisiECZSt2pXt8lw1k/edit?usp=sharing"
+                    target="_blank" class="meta-link me-2 rounded-pill px-3 py-1 bg-ieee-yellow text-dark fw-bold">
+                    <i class="fas fa-calendar-check me-1"></i> Book Events
+                </a>
+                <a href="https://drive.google.com/drive/folders/1Fmxumo-m39An5SNmD_V82TFON70-KVcC?usp=drive_link"
+                    target="_blank" class="meta-link rounded-pill px-3 py-1 bg-outline-white text-white fw-bold"
+                    style="border: 1px solid rgba(255,255,255,0.3); font-size: 0.8rem;">
+                    <i class="fas fa-cloud-upload-alt me-1"></i> Report Submission
+                </a>
+
+            </div>
+            <div class="meta-right d-none d-md-block">
+                <a href="admin.html" class="text-white-50 text-decoration-none small"><i class="fas fa-lock me-1"></i>
+                    Admin Access</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header & Navigation -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+            <div class="container">
+                <!-- Logos -->
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="JIT LOGO - Aqua.png" alt="JIT College Logo" class="me-3">
+                    <img src="jit ieee sb logo.png" alt="JIT IEEE Student Branch Logo" class="me-3">
+                    <img src="IEEE_logo.svg.png" alt="IEEE Logo">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item active"><a class="nav-link" href="#home">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#awardees">Awardees</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#team">Our Team</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item ms-lg-3"><a class="btn btn-ieee btn-sm py-2 px-3 mt-1"
+                                href="https://forms.gle/8ehs6w69mbjBUrkC8" target="_blank">Register Today</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Master Slider (Slick) Banner Section -->
+    <section id="home" class="p-0">
+        <div class="hero-slider fade-in">
+            <!-- Slide 1 -->
+            <div class="hero-slide" style="background-image: url('jit ieee group pic.jpeg');">
+                <div class="slide-content">
+                    <h2>Advancing Technology for Humanity</h2>
+                    <p>Empowering the next generation of engineers through innovation, collaboration, and learning.</p>
+                    <a href="#about" class="btn btn-ieee">Learn More</a>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="hero-slide" style="background-image: url('Wie day group pic.jpeg');">
+                <div class="slide-content">
+                    <h2>Connect. Learn. Grow.</h2>
+                    <p>Join a global network of professionals and students dedicated to shaping the future.</p>
+                    <a href="#events" class="btn btn-ieee">View Events</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title">About the Student Branch</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="about-bg-1.jpg" alt="Student Innovation Workspace" class="img-fluid about-image">
+                </div>
+                <div class="col-lg-6 px-lg-5">
+                    <p class="about-text">
+                        The IEEE Student Branch at our college is a vibrant community of passionate engineering students
+                        aimed at fostering technological innovation and excellence. We dedicate ourselves to advancing
+                        technology for the benefit of humanity.
+                    </p>
+                    <p class="about-text">
+                        Through workshops, hands-on seminars, guest lectures, and collaborative projects, we provide
+                        students with the perfect platform to transform their theoretical knowledge into practical
+                        expertise. Our vibrant branch serves to inspire and guide aspiring engineers towards bright
+                        careers.
+                    </p>
+                    <a href="https://forms.gle/8ehs6w69mbjBUrkC8" target="_blank" class="btn btn-ieee mt-3">Join JIT
+                        IEEE SB</a>
+                    <a href="#team" class="btn btn-ieee mt-3 ms-md-2">Meet the Team</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapters Section -->
+    <section id="chapters" class="chapters-section">
+        <div class="container">
+            <h2 class="section-title">Our Technical Chapters</h2>
+            <div class="row">
+                <!-- Computer Society -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="chapter-card">
+                        <img src="CS logo.png" alt="Computer Society" class="chapter-logo">
+                        <h4 class="chapter-title">Computer Society</h4>
+                        <p class="chapter-desc">Focused on advancing the theory, practice, and application of computer
+                            science and engineering technology.</p>
+                    </div>
+                </div>
+                <!-- CAS -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="chapter-card">
+                        <img src="CAS logo.png" alt="Circuits and Systems Society" class="chapter-logo">
+                        <h4 class="chapter-title">Circuits and Systems Society</h4>
+                        <p class="chapter-desc">Focusing on the theory, analysis, and implementation of circuits and
+                            systems across all domains.</p>
+                    </div>
+                </div>
+                <!-- RAS -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="chapter-card">
+                        <img src="RAS logo.png" alt="Robotics and Automation Society" class="chapter-logo">
+                        <h4 class="chapter-title">Robotics and Automation Society</h4>
+                        <p class="chapter-desc">Advancing science and engineering in robotics and automation for the
+                            benefit of humanity.</p>
+                    </div>
+                </div>
+                <!-- SSIT -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="chapter-card">
+                        <img src="SSIT logo.png" alt="Social Implications of Technology" class="chapter-logo">
+                        <h4 class="chapter-title">SSIT</h4>
+                        <p class="chapter-desc">Exploring the impact of technology on society and focusing on ethical,
+                            economic, and political factors.</p>
+                    </div>
+                </div>
+                <!-- WIE -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="chapter-card">
+                        <img src="WIE logo.png" alt="Women in Engineering" class="chapter-logo">
+                        <h4 class="chapter-title">Women in Engineering</h4>
+                        <p class="chapter-desc">Promoting women engineers/scientists and inspiring girls to follow
+                            academic interests in engineering.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">Event Gallery</h2>
+            <div class="row g-3" id="galleryContainer">
+                <!-- Gallery items will be populated here -->
+            </div>
+            <div class="text-center mt-5">
+                <p class="text-white-50">Capturing the best moments of our technological journey.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Home Section -->
+    <section id="achievementsHome" class="bg-light">
+        <div class="container">
+            <h2 class="section-title">Recent Achievements</h2>
+            <div class="row" id="achievementsHomeContainer">
+                <!-- Most recent achievements will be populated here -->
+            </div>
+            <div class="text-center mt-4">
+                <a href="achievements.html" class="btn btn-ieee">View All Achievements</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notable Awardees Section -->
+    <section id="awardees" class="awardees-section">
+        <div class="container">
+            <h2 class="section-title">Hall of Fame</h2>
+            <p class="text-center mb-5 text-muted">Celebrating our members who have achieved excellence in the global
+                IEEE community.</p>
+            <div class="row g-4">
+                <!-- Award 1 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="award-card">
+                        <div class="award-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h4 class="award-name">Richard E Merwin Scholarship</h4>
+                        <div class="award-recipient">Mr. Yeleshetty Deepak</div>
+                        <div class="award-year">2015 - 2016</div>
+                    </div>
+                </div>
+                <!-- Award 2 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="award-card">
+                        <div class="award-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h4 class="award-name">Richard E Merwin Scholarship</h4>
+                        <div class="award-recipient">Mr. Jamal Mohammad</div>
+                        <div class="award-year">2016 - 2017</div>
+                    </div>
+                </div>
+                <!-- Award 3 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="award-card">
+                        <div class="award-icon"><i class="fas fa-award"></i></div>
+                        <h4 class="award-name">Richard E Merwin Scholarship</h4>
+                        <div class="award-recipient">Mr. Susheel</div>
+                        <div class="award-year">2016 - 2017</div>
+                    </div>
+                </div>
+                <!-- Award 4 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="award-card">
+                        <div class="award-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h4 class="award-name">Richard E Merwin Scholarship</h4>
+                        <div class="award-recipient">Mr. Abdul Halik M I</div>
+                        <div class="award-year">2018 - 2019</div>
+                    </div>
+                </div>
+                <!-- Award 5 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="award-card highlight-award">
+                        <div class="award-icon"><i class="fas fa-star text-warning"></i></div>
+                        <h4 class="award-name">Richard E Merwin Scholarship</h4>
+                        <div class="award-recipient">Ms. Shobana L</div>
+                        <div class="award-year">2022 - 2023</div>
+                    </div>
+                </div>
+                <!-- Award 6 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="award-card highlight-award">
+                        <div class="award-icon"><i class="fas fa-chalkboard-teacher text-info"></i></div>
+                        <h4 class="award-name">Best Counselor / Advisor</h4>
+                        <div class="award-recipient">Mrs. M. Benisha</div>
+                        <div class="award-year">2022 - 2023</div>
+                    </div>
+                </div>
+                <!-- Award 7 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="award-card highlight-award">
+                        <div class="award-icon"><i class="fas fa-trophy text-secondary"></i></div>
+                        <h4 class="award-name">Darel Chong Service Award</h4>
+                        <div class="award-recipient">JIT IEEE SB -Silver Recognition</div>
+                        <div class="award-year">2022 - 2023</div>
+                    </div>
+                </div>
+                <!-- Award 8 -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="award-card highlight-award">
+                        <div class="award-icon"><i class="fas fa-rocket text-primary"></i></div>
+                        <h4 class="award-name">Academia-Industry Scholarship</h4>
+                        <div class="award-recipient">Karthik P (IT)</div>
+                        <div class="award-year">2025</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <!-- Newsletters Section -->
+    <section id="newsletters" class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-card p-5 text-center text-white">
+                <h2 class="fw-bold mb-3">Our Digital Newsletters</h2>
+                <p class="mb-5 px-lg-5">Stay updated with our latest releases, technological trends, and branch activity
+                    through our periodic digital newsletters.</p>
+                <div class="row justify-content-center" id="newsletterContainer">
+                    <!-- Newsletters will be populated here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section (WP The Events Calendar Simulation) -->
+    <section id="events" class="events-section">
+        <div class="container">
+            <h2 class="section-title">Upcoming Events</h2>
+            <div class="row" id="eventsContainer">
+                <!-- Events will be populated here via JavaScript from localStorage -->
+            </div>
+            <div class="events-cta text-center mt-4">
+                <a href="events.html" class="btn btn-ieee">View All Events</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section (Easy Team Members Simulation) -->
+    <section id="team" class="team-section">
+        <div class="container">
+            <h2 class="section-title">Our Executive Committee</h2>
+            <div class="row justify-content-center" id="teamContainer">
+                <!-- Team matches will be populated here via JavaScript from localStorage -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form (Contact Form 7 Simulation) -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="row">
+                <div class="col-lg-7 mb-5 mb-lg-0">
+                    <!-- Form 7 (Connected to Formspree) -->
+                    <div data-fs-success class="alert alert-success" style="display:none;">Your message has been sent
+                        successfully!</div>
+                    <div data-fs-error class="alert alert-danger" style="display:none;">There was an error submitting
+                        the form.</div>
+
+                    <form id="contactForm" class="contact-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">Your Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" required
+                                        data-fs-field>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email">Your Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" required
+                                        data-fs-field>
+                                    <span data-fs-error="email" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="subject">Subject</label>
+                            <input type="text" class="form-control" id="subject" name="subject" required data-fs-field>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="message">Message</label>
+                            <textarea class="form-control" id="message" name="message" rows="5" required
+                                data-fs-field></textarea>
+                            <span data-fs-error="message" class="text-danger small"></span>
+                        </div>
+                        <button type="submit" class="btn btn-ieee mt-3" data-fs-submit-btn>Send Message</button>
+                    </form>
+                </div>
+
+                <div class="col-lg-4 offset-lg-1">
+                    <div class="contact-info">
+                        <h4>Contact Information</h4>
+                        <p><i class="fas fa-map-marker-alt"></i> JIT IEEE Student Branch, Jeppiaar Institute of
+                            Technology, Kunnam, Sunguvarchatram, Sripermunbudur, Chennai 631604</p>
+                        <p><i class="fas fa-phone-alt"></i> +91 90031 91790</p>
+                        <p><i class="fas fa-envelope"></i> ieeejitsb@gmail.com</p>
+                        <p><i class="fas fa-globe"></i> <a href="http://www.jeppiaarinstitute.org" target="_blank"
+                                style="color: inherit; text-decoration: none;">www.jeppiaarinstitute.org</a></p>
+
+                        <h4 class="mt-5">Follow Us</h4>
+                        <div class="social-links mt-0">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.linkedin.com/in/jit-ieee-student-branch-01b6111b6?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+                                target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.instagram.com/jit_ieee_sb?igsh=MWRyNXl2M29ma3dqbQ==" target="_blank"><i
+                                    class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="JIT LOGO - Aqua.png" alt="JIT College Logo"
+                            style="max-height: 50px; margin-right: 15px; filter: brightness(0) invert(1);">
+                        <img src="jit ieee sb logo.png" alt="Footer Logo"
+                            style="max-height: 50px; margin-right: 15px; filter: brightness(0) invert(1);">
+                        <img src="IEEE_logo.svg.png" alt="IEEE Logo"
+                            style="max-height: 35px; filter: brightness(0) invert(1);">
+                    </div>
+                    <p class="footer-text">Empowering students to drive innovation and technological advancement for a
+                        better tomorrow. Join our community today.</p>
+                    <div class="social-links mt-0">
+                        <a href="https://www.linkedin.com/in/jit-ieee-student-branch-01b6111b6?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+                            target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/jit_ieee_sb?igsh=MWRyNXl2M29ma3dqbQ==" target="_blank"><i
+                                class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 offset-md-1 mb-4">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <nav class="footer-nav">
+                        <ul>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#events">Upcoming Events</a></li>
+                            <li><a href="#team">Our Team</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h4 class="footer-title">Connect With Us</h4>
+                    <div class="social-links mt-0 mb-4">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <p class="footer-text" style="font-size: 0.9rem;">
+                        <i class="fas fa-map-marker-alt" style="color: var(--ieee-yellow); margin-right: 10px;"></i>
+                        JIT IEEE SB, Jeppiaar Institute of Technology
+                    </p>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; <span id="year"></span> JIT IEEE Student Branch. All Rights Reserved. Designed according to
+                    IEEE DCI Theme Guidelines.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery & Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Slick Slider JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- Formspree script -->
+    <script>
+        window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+        formspree('initForm', { formElement: '#contactForm', formId: 'mkopyzwz' });
+    </script>
+    <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
+    <!-- Firebase Libraries -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-analytics-compat.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

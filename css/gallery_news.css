@@ -1,0 +1,22 @@
+/* Gallery Section */
+.gallery-section { background: #fdfdfd; padding: 80px 0; border-top: 1px solid #eee; }
+.gallery-item { position: relative; overflow: hidden; border-radius: 15px; height: 300px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 4px solid white; transition: all 0.3s ease; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.gallery-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 98, 148, 0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 0.4s ease; padding: 25px; text-align: center; color: white; }
+.gallery-overlay p { font-size: 1.1rem; font-weight: 700; transform: translateY(20px); transition: transform 0.4s ease; }
+.gallery-item:hover { box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
+.gallery-item:hover img { transform: scale(1.15); }
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-item:hover .gallery-overlay p { transform: translateY(0); }
+
+/* Newsletter Section */
+.newsletter-section { padding: 100px 0; background: #fff; }
+.newsletter-card { background: linear-gradient(135deg, #006294 0%, #002855 100%); border-radius: 30px; border: none; box-shadow: 0 20px 40px rgba(0,40,85,0.2); }
+.newsletter-release-card { position: relative; border: none; border-radius: 12px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); background: white; height: 350px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; }
+.newsletter-cover { width: 100%; height: 100%; object-fit: cover; }
+.newsletter-info-overlay { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0, 40, 85, 0.95) 0%, rgba(0, 40, 85, 0.4) 60%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; opacity: 0; transition: opacity 0.3s ease; text-align: center; color: white; }
+.btn-ieee-yellow { background-color: #FFC72C; color: #000; border: none; font-weight: bold; }
+.newsletter-release-card:hover { transform: scale(1.05) translateY(-5px); }
+.newsletter-release-card:hover .newsletter-info-overlay { opacity: 1; }
+.newsletter-info-overlay h6 { font-size: 0.9rem; margin-bottom: 10px; font-weight: 700; color: #FFC72C; }
+.newsletter-release-link { text-decoration: none; display: block; }
